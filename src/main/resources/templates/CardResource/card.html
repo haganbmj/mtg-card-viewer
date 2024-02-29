@@ -1,0 +1,37 @@
+{@java.lang.String id}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BigDeck.pics</title>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        #card-image {
+            width: auto;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <img id="card-image" src="">
+<script>
+    const cardElement = document.querySelector('#card-image');
+    const eventSource = new EventSource('/card/{id}/sse');
+
+    eventSource.addEventListener('card_update', e => {
+        cardElement.src = e.data;
+    });
+</script>
+</body>
+</html>
