@@ -10,6 +10,7 @@ import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.DefaultValue
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.HeaderParam
+import jakarta.ws.rs.POST
 import jakarta.ws.rs.PUT
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
@@ -75,7 +76,7 @@ class CardResource(
         lastSentEventMap[id] = event
     }
 
-    @GET
+    @POST
     @Path("/{id}/sse")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @ResponseHeader(name = "Cache-Control", value = ["no-cache"])
