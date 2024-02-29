@@ -27,9 +27,10 @@
     <img id="card-image" src="">
 <script>
     const cardElement = document.querySelector('#card-image');
-    const eventSource = new EventSource('/card/{id}/sse');
+    const protocol = (window.location.protocol === 'https:') ? 'wss:' : 'ws:';
+    const ws = new WebSocket(`${ protocol }//${ location.host }/card/{id}/ws`);
 
-    eventSource.addEventListener('card_update', e => {
+    ws.addEventListener('message', e => {
         cardElement.src = e.data;
     });
 </script>

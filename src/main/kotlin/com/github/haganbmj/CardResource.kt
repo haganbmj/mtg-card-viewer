@@ -30,13 +30,9 @@ import java.util.concurrent.ConcurrentHashMap
 @Path("/card")
 @ApplicationScoped
 class CardResource(
-    @Location("CardResource/card.html") val cardTemplate: Template
+    @Location("CardResource/card.html") val cardTemplate: Template,
+    val cardSessions: CardSessions,
 ) {
-
-    // TODO: Determine how to release these Broadcaster objects while accounting for multiple subscriptions.
-    //  Could maybe just do some Atomic that counts the number of requests contexts tied to it?
-    val broadcastMap = ConcurrentHashMap<String, SseBroadcaster>()
-    val lastSentEventMap = ConcurrentHashMap<String, OutboundSseEvent>()
 
     @GET
     @Path("/{id}")
@@ -50,6 +46,7 @@ class CardResource(
 
     /**
      * TODO: Consider supporting by name assignment for other contexts.
+     * TODO: Validate the url being passed is not just random garbage.
      */
     @PUT
     @Path("/{id}")
@@ -59,40 +56,7 @@ class CardResource(
         cardUpdate: CardUpdate,
         @Context sse: Sse,
     ) {
-        // TODO: Validate the url being passed is not just random garbage.
         Log.info("set: id=$id, update=$cardUpdate")
-        val event = sse.newEventBuilder()
-            .id(UUID.randomUUID().toString())
-            .name("card_update")
-            .mediaType(MediaType.APPLICATION_JSON_TYPE)
-            .data(String::class.java, cardUpdate.url)
-            .build()
-
-        broadcastMap[id]?.let {
-            Log.info("broadcast: id=$id, event=$event")
-            it.broadcast(event)
-        }
-
-        lastSentEventMap[id] = event
-    }
-
-    @POST
-    @Path("/{id}/sse")
-    @Produces(MediaType.SERVER_SENT_EVENTS)
-    @ResponseHeader(name = "Cache-Control", value = ["no-cache"])
-    @ResponseHeader(name = "X-Accel-Buffering", value = ["no"])
-    fun sse(
-        @PathParam("id") id: String,
-        @HeaderParam(HttpHeaders.LAST_EVENT_ID_HEADER) @DefaultValue("-1") lastEventId: Int,
-        @Context sse: Sse,
-        @Context sink: SseEventSink,
-    ) {
-        Log.info("sse: id=$id, lastEventId=$lastEventId")
-        broadcastMap.computeIfAbsent(id) {
-            sse.newBroadcaster()
-        }.register(sink)
-
-        // Send the last known event on an initial connection.
-        lastSentEventMap[id]?.let { sink.send(it) }
+        cardSessions.broadcast(id, cardUpdate.url)
     }
 }
