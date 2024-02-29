@@ -21,6 +21,7 @@ import jakarta.ws.rs.sse.OutboundSseEvent
 import jakarta.ws.rs.sse.Sse
 import jakarta.ws.rs.sse.SseBroadcaster
 import jakarta.ws.rs.sse.SseEventSink
+import org.jboss.resteasy.reactive.ResponseHeader
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
@@ -77,6 +78,7 @@ class CardResource(
     @GET
     @Path("/{id}/sse")
     @Produces(MediaType.SERVER_SENT_EVENTS)
+    @ResponseHeader(name = "Cache-Control", value = ["no-cache"])
     fun sse(
         @PathParam("id") id: String,
         @HeaderParam(HttpHeaders.LAST_EVENT_ID_HEADER) @DefaultValue("-1") lastEventId: Int,
