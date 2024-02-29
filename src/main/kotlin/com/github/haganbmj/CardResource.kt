@@ -79,6 +79,7 @@ class CardResource(
     @Path("/{id}/sse")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @ResponseHeader(name = "Cache-Control", value = ["no-cache"])
+    @ResponseHeader(name = "X-Accel-Buffering", value = ["no"])
     fun sse(
         @PathParam("id") id: String,
         @HeaderParam(HttpHeaders.LAST_EVENT_ID_HEADER) @DefaultValue("-1") lastEventId: Int,
