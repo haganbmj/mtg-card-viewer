@@ -28,11 +28,22 @@
 <script>
     const cardElement = document.querySelector('#card-image');
     const protocol = (window.location.protocol === 'https:') ? 'wss:' : 'ws:';
-    const ws = new WebSocket(`${ protocol }//${ location.host }/card/{id}/ws`);
+    let ws;
 
-    ws.addEventListener('message', e => {
-        cardElement.src = e.data;
-    });
+    function createWebsocket() {
+        ws = new WebSocket(`${ protocol }//${ location.host }/card/{id}/ws`);
+
+        ws.addEventListener('message', e => {
+            cardElement.src = e.data;
+        });
+
+        ws.addEventListener('close', e => {
+            ws = null;
+            createWebsocket();
+        });
+    }
+
+    createWebsocket();
 </script>
 </body>
 </html>
