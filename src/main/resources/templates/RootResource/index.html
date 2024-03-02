@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BigDeck.pics - MTG Card Viewer</title>
+    <link rel="stylesheet" href="/css/mustard-ui-1.0.4.min.css">
+
+    <style>
+        .img-responsive {
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .screenshot {
+            margin: 25px auto;
+        }
+
+        .screenshot-sml {
+            max-width: 80%;
+            margin: 25px auto;
+        }
+
+        .container {
+            max-width: 975px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-12">
+                    <section>
+                        <h1 class="h2">MTG Card Viewer</h1>
+                        <p>Browser extension to ease the process of showing MTG card images while live streaming by adding one-click promotion of a Scryfall image to an OBS Browser Source.</p>
+
+                        <div class="align-center">
+                            <a href="https://chromewebstore.google.com/detail/mtg-card-viewer/jkbmgmknmajfmohjkdplckdlgmohliid">
+                                <button class="button-primary-outlined">Chrome Extension</button>
+                            </a>
+
+                            <a href="https://github.com/haganbmj/mtg-card-viewer">
+                                <button class="button-primary-outlined">Source on Github</button>
+                            </a>
+                        </div>
+                        <div class="align-center">
+                            <img src="/img/obs-scene.png" class="img-responsive screenshot" />
+                        </div>
+                    </section>
+
+                    <section></section>
+
+                    <section>
+                        <h3>Setup</h3>
+                        <p>After installing the extension, make your way to the <strong>Extensions</strong> setting panel and open the <strong>Details</strong> view.</p>
+                        <img src="/img/extension-details-button.png" class="img-responsive screenshot-sml" />
+                        <p>Within the extension details page find <strong>Extension options</strong>.</p>
+                        <img src="img/extension-details-options.png" class="img-responsive screenshot-sml" />
+                        <p>That pops up a custom settings menu for the extension. A random identifier will be generated on open, but can be overridden if desired.</p>
+                        <p>Drag and Drop the mentioned Image URL at the bottom of the menu into OBS to automatically create a source, or Copy the URL to create your own.</p>
+                        <img src="img/extension-details-settings.png" class="img-responsive screenshot-sml" />
+                        <img src="img/extension-obs-config.png" class="img-responsive screenshot-sml" />
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-5">
+                    <div class="footer-text">
+                        <p>Not associated with or endorsed by either Wizards of the Coast or Scryfall.</p>
+                    </div>
+                </div>
+                <div class="col col-sm-6 col-lg-3 col-lg-offset-1">
+                    <h4 class="footer-links-category">Other Content</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://proxy.griselbrand.com">Proxy Printer</a></li>
+                        <li><a href="https://decklist.griselbrand.com">Decklist Printer</a></li>
+                        <li><a href="https://griselbrand.com">Griselbrand.com</a></li>
+                    </ul>
+                </div>
+                <div class="col col-sm-6 col-lg-3">
+                    <h4 class="footer-links-category">Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://twitter.com/haganbmj">Twitter</a></li>
+                        <li><a href="https://github.com/haganbmj/mtg-card-viewer">Github</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.github.haganbmj
+package com.github.haganbmj.services
 
 import io.quarkus.logging.Log
 import jakarta.enterprise.context.ApplicationScoped
@@ -6,7 +6,7 @@ import jakarta.websocket.Session
 import java.util.concurrent.ConcurrentHashMap
 
 @ApplicationScoped
-class CardSessions {
+class WebSocketSessionService {
 
     val sessionMap = ConcurrentHashMap<String, ConcurrentHashMap<String, Session>>()
     val lastSentMessage = ConcurrentHashMap<String, String>()

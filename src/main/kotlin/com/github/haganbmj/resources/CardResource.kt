@@ -1,5 +1,6 @@
-package com.github.haganbmj
+package com.github.haganbmj.resources
 
+import com.github.haganbmj.services.WebSocketSessionService
 import com.github.haganbmj.models.CardUpdate
 import io.quarkus.logging.Log
 import io.quarkus.qute.Location
@@ -8,32 +9,22 @@ import io.quarkus.qute.TemplateInstance
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.ws.rs.BadRequestException
 import jakarta.ws.rs.Consumes
-import jakarta.ws.rs.DefaultValue
 import jakarta.ws.rs.GET
-import jakarta.ws.rs.HeaderParam
-import jakarta.ws.rs.POST
 import jakarta.ws.rs.PUT
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.Context
-import jakarta.ws.rs.core.HttpHeaders
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.sse.OutboundSseEvent
 import jakarta.ws.rs.sse.Sse
-import jakarta.ws.rs.sse.SseBroadcaster
-import jakarta.ws.rs.sse.SseEventSink
-import org.jboss.resteasy.reactive.ResponseHeader
 import java.net.URL
-import java.util.UUID
-import java.util.concurrent.ConcurrentHashMap
 
 // fetch('http://localhost:8081/card/abc', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({'id': 'abc', 'url': 'https://cards.scryfall.io/normal/front/0/6/06b2b8a4-3174-4188-959c-f456f9fcd563.jpg?1708638161'}) })
 @Path("/card")
 @ApplicationScoped
 class CardResource(
     @Location("CardResource/card.html") val cardTemplate: Template,
-    val cardSessions: CardSessions,
+    val webSocketSessionService: WebSocketSessionService,
 ) {
 
     @GET
@@ -67,6 +58,6 @@ class CardResource(
         if (incomingUrl.host != "cards.scryfall.io") {
             throw BadRequestException("Unrecognized card url.")
         }
-        cardSessions.broadcast(id, incomingUrl.toString())
+        webSocketSessionService.broadcast(id, incomingUrl.toString())
     }
 }
