@@ -1,0 +1,36 @@
+{
+    "manifest_version": 3,
+    "name": "MTG Card Viewer",
+    "description": "MTG Card Viewer",
+    "version": "0.0.1",
+    "icons": {
+        "48": "icon/icon-48.png",
+        "96": "icon/icon-96.png"
+    },
+    "permissions": [
+        "storage"
+    ],
+    "host_permissions": [
+        "https://bigdeck.pics/*"
+    ],
+    "content_scripts": [
+        {
+            "js": [
+                "content/content.js"
+            ],
+            "css": [
+                "content/content.css"
+            ],
+            "matches": [
+                "*://*.scryfall.com/*"
+            ],
+            "exclude_matches": [
+                "*://api.scryfall.com/*"
+            ]
+        }
+    ],
+    "options_ui": {
+        "page": "options/options.html",
+        "open_in_tab": false
+    }
+}

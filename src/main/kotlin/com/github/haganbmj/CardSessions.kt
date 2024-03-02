@@ -1,5 +1,6 @@
 package com.github.haganbmj
 
+import io.quarkus.logging.Log
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.websocket.Session
 import java.util.concurrent.ConcurrentHashMap
@@ -22,6 +23,7 @@ class CardSessions {
     }
 
     fun broadcast(id: String, data: String) {
+        Log.info("broadcast: id=$id, data=$data")
         sessionMap[id]?.values?.forEach { send(it, data) }
         lastSentMessage[id] = data
     }

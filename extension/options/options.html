@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MTG Card Viewer Options</title>
+        <style>
+            html {
+                font-size: 62.5%;
+                -webkit-text-size-adjust: 100%;
+            }
+
+            body {
+                padding: 1em;
+                overflow-y: hidden;
+                overflow-x: hidden;
+
+                font-size: 1.5em;
+                line-height: 1.6;
+                font-weight: 400;
+                font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                color: #222;
+            }
+
+            p, form {
+                margin-bottom: 2.5rem;
+            }
+
+            .container {
+                display: flex;
+            }
+
+            .container .flex-grow-1 {
+                display: flex;
+                flex-grow: 1;
+            }
+
+            .row:after {
+                content: '';
+                display: table;
+                clear: both;
+            }
+            .u-pull-right {
+                float: right;
+            }
+
+            .u-pull-left {
+                float: left;
+            }
+
+            .u-full-width {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+            }
+
+            input {
+                appearance: none;
+                height: 38px;
+                padding: 6px 10px;
+                background-color: #fff;
+                border: 1px solid #d1d1d1;
+                border-radius: 4px;
+                box-shadow: none;
+                box-sizing: border-box;
+                margin-bottom: 1.5rem;
+                line-height: normal;
+                margin: 0;
+            }
+
+            input:focus {
+                border: 1px solid #33c3f0;
+                outline: 0;
+            }
+
+            button, .button {
+                display: inline-block;
+                height: 38px;
+                padding: 0 30px;
+                color: #555;
+                text-align: center;
+                font-size: 11px;
+                font-weight: 600;
+                line-height: 38px;
+                letter-spacing: 0.1rem;
+                text-transform: uppercase;
+                text-decoration: none;
+                white-space: nowrap;
+                background-color: transparent;
+                border-radius: 4px;
+                border: 1px solid #bbb;
+                cursor: pointer;
+                box-sizing: border-box;
+                margin-bottom: 1rem;
+            }
+
+            button.button-primary, .button.button-primary {
+                color: #fff;
+                background-color: #33cff0;
+                border-color: #33cff0;
+            }
+
+            #show-hide-password {
+                min-width: 12rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="u-full-width">
+            <p class="row">
+                Set or generate a unique identifier.
+                This should be considered private as anyone with the identifier will be able to set the displayed image.
+            </p>
+
+            <div class="row">
+                <form id="options">
+                    <div class="row">
+                        <label for="id">ID</label>
+                        <div class="row container">
+                            <input id="id" type="password" pattern="^[A-Za-z0-9]+$" class="flex-grow-1" required>
+                            <button id="show-hide-password" type="button">Show</button>
+                        </div>
+                    </div>
+                    <button id="randomize-id" class="u-full-width" type="button">Randomize</button>
+                    <button id="submit" class="button-primary u-full-width" type="submit">Save Changes</button>
+                </form>
+            </div>
+
+            <div class="row details">
+                <p>View the active card <a id="card-url" href="" target="_blank">HERE</a>, or drag the link into OBS v25.0.0 (or higher) to automatically add a preconfigured source.</p>
+            </div>
+        </div>
+
+        <script src="options.js"></script>
+    </body>
+</html>

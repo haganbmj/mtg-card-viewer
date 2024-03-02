@@ -6,6 +6,7 @@ import io.quarkus.qute.Location
 import io.quarkus.qute.Template
 import io.quarkus.qute.TemplateInstance
 import jakarta.enterprise.context.ApplicationScoped
+import jakarta.ws.rs.BadRequestException
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.DefaultValue
 import jakarta.ws.rs.GET
@@ -23,6 +24,7 @@ import jakarta.ws.rs.sse.Sse
 import jakarta.ws.rs.sse.SseBroadcaster
 import jakarta.ws.rs.sse.SseEventSink
 import org.jboss.resteasy.reactive.ResponseHeader
+import java.net.URL
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
@@ -40,13 +42,12 @@ class CardResource(
     fun render(
         @PathParam("id") id: String,
     ) : TemplateInstance {
-        Log.info("page: $id")
         return cardTemplate.data("id", id)
     }
 
     /**
-     * TODO: Consider supporting by name assignment for other contexts.
-     * TODO: Validate the url being passed is not just random garbage.
+     * TODO: Consider supporting by name assignment for other contexts. This would require doing some kind of lookup.
+     * FIXME: Improve url validation + string replacement.
      */
     @PUT
     @Path("/{id}")
@@ -57,6 +58,15 @@ class CardResource(
         @Context sse: Sse,
     ) {
         Log.info("set: id=$id, update=$cardUpdate")
-        cardSessions.broadcast(id, cardUpdate.url)
+        val incomingUrl = URL(
+            cardUpdate.url.replace("/normal/", "/png/")
+                .replace("/large/", "/png/")
+                .replace(".jpg", ".png")
+        )
+
+        if (incomingUrl.host != "cards.scryfall.io") {
+            throw BadRequestException("Unrecognized card url.")
+        }
+        cardSessions.broadcast(id, incomingUrl.toString())
     }
 }

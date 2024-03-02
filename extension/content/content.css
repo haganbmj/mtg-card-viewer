@@ -1,0 +1,5 @@
+.mcv-stream-button {
+    z-index: 1500 !important;
+    position: absolute !important;
+    bottom: 0 !important;
+}
