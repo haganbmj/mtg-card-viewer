@@ -4,8 +4,8 @@ const defaultSettings = {
 let settings = {};
 const server = 'https://bigdeck.pics';
 
-function loadSettings() {
-    chrome.storage.local.get(defaultSettings).then(data => {
+async function loadSettings() {
+    return chrome.storage.local.get(defaultSettings).then(data => {
         settings = {
             ...defaultSettings,
             ...data,
@@ -14,21 +14,23 @@ function loadSettings() {
 }
 
 function changeCardImage(url) {
-    console.log(`Change Card Image: ${url}`);
-    if (settings.id === undefined || settings.id == null || settings.id.trim() == '') {
-        alert('No ID configured for MTG Card Viewer. Use the extension settings page to set an ID.')
-        throw new Error('No ID configured for MTG Card Viewer.');
-    }
+    // This is just to avoid needing to reload the page to pick up any config changes.
+    loadSettings().then(_ => {
+        if (settings.id === undefined || settings.id == null || settings.id.trim() == '') {
+            alert('No ID configured for MTG Card Viewer. Use the extension settings page to set an ID.')
+            throw new Error('No ID configured for MTG Card Viewer.');
+        }
 
-    fetch(`${server}/card/${settings.id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            id: settings.id,
-            url: url,
-        }),
+        fetch(`${server}/card/${settings.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: settings.id,
+                url: url,
+            }),
+        });
     });
 }
 
