@@ -7,6 +7,13 @@
         "48": "icon/icon-48.png",
         "96": "icon/icon-96.png"
     },
+    "action": {
+        "default_popup": "options/options.html",
+        "default_icon": {
+            "48": "icon/icon-48.png",
+            "96": "icon/icon-96.png"
+        }
+    },
     "permissions": [
         "storage"
     ],
