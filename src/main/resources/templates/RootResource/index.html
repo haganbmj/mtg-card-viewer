@@ -25,12 +25,16 @@
         }
 
         .screenshot-sml {
-            max-width: 80%;
+            max-width: 90%;
             margin: 25px auto;
         }
 
         .container {
             max-width: 975px;
+        }
+
+        .spacer {
+            height: 25px;
         }
     </style>
 </head>
@@ -43,6 +47,7 @@
                         <h1 class="h2">MTG Card Viewer</h1>
                         <p>Browser extension to ease the process of showing MTG card images while live streaming by adding one-click promotion of a Scryfall image to an OBS Browser Source.</p>
 
+                        <div class="spacer"></div>
                         <div class="align-center">
                             <a href="https://chromewebstore.google.com/detail/mtg-card-viewer/jkbmgmknmajfmohjkdplckdlgmohliid">
                                 <button class="button-primary-outlined">Chrome Extension</button>
@@ -52,6 +57,7 @@
                                 <button class="button-primary-outlined">Source on Github</button>
                             </a>
                         </div>
+                        <div class="spacer"></div>
                         <div class="align-center">
                             <img src="/img/obs-scene.png" class="img-responsive screenshot" />
                         </div>
@@ -61,14 +67,38 @@
 
                     <section>
                         <h3>Setup</h3>
-                        <p>After installing the extension, make your way to the <strong>Extensions</strong> setting panel and open the <strong>Details</strong> view.</p>
-                        <img src="/img/extension-details-button.png" class="img-responsive screenshot-sml" />
-                        <p>Within the extension details page find <strong>Extension options</strong>.</p>
-                        <img src="img/extension-details-options.png" class="img-responsive screenshot-sml" />
-                        <p>That pops up a custom settings menu for the extension. A random identifier will be generated on open, but can be overridden if desired.</p>
-                        <p>Drag and Drop the mentioned Image URL at the bottom of the menu into OBS to automatically create a source, or Copy the URL to create your own.</p>
-                        <img src="img/extension-details-settings.png" class="img-responsive screenshot-sml" />
-                        <img src="img/extension-obs-config.png" class="img-responsive screenshot-sml" />
+                        <p>After installing the extension, either click the Icon in your browser's <strong>Toolbar</strong> or make your way to the <strong>Extensions</strong> setting page and open the <strong>Details</strong> view.</p>
+                        <div class="row">
+                            <div class="col col-lg-6">
+                                <h4>From Toolbar</h4>
+                                <img src="/img/extension-toolbar-settings.png" class="img-responsive screenshot-sml" />
+                            </div>
+                            <div class="col col-lg-6">
+                                <h4>From Extensions Page</h4>
+                                <img src="/img/extension-details-button.png" class="img-responsive screenshot-sml" />
+                                <p>Within the extension details page find <strong>Extension options</strong>.</p>
+                                <img src="img/extension-details-options.png" class="img-responsive screenshot-sml" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <p>Either method will pop up a settings menu for the extension.</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-lg-6">
+                                <h4>Settings Panel</h4>
+                                <p>A random identifier will be generated on open, but can be overridden if desired.</p>
+                                <img src="img/extension-details-settings.png" class="img-responsive screenshot-sml" />
+                            </div>
+                            <div class="col col-lg-6">
+                                <h4>OBS Configuration</h4>
+                                <p>Drag and Drop the mentioned Image URL at the bottom of the menu into OBS to automatically create a source, or Copy the URL to create your own.</p>
+                                <img src="img/extension-obs-config.png" class="img-responsive screenshot-sml" />
+                            </div>
+                        </div>
                     </section>
                 </div>
             </div>
